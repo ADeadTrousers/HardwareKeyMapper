@@ -1,0 +1,38 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:key="@string/key_title_orientation">
+
+        <Preference
+            app:icon="@drawable/key_home"
+            app:key="@string/key_key_home"
+            app:title="@string/title_key_home" />
+        <Preference
+            app:icon="@drawable/key_back"
+            app:key="@string/key_key_back"
+            app:title="@string/title_key_back" />
+        <Preference
+            app:icon="@drawable/key_menu"
+            app:key="@string/key_key_menu"
+            app:title="@string/title_key_menu" />
+        <Preference
+            app:icon="@drawable/key_search"
+            app:key="@string/key_key_search"
+            app:title="@string/title_key_search" />
+        <Preference
+            app:icon="@drawable/key_app_switch"
+            app:key="@string/key_key_app_switch"
+            app:title="@string/title_key_app_switch" />
+        <Preference
+            app:icon="@drawable/key_camera"
+            app:key="@string/key_key_camera"
+            app:title="@string/title_key_camera" />
+        <Preference
+            app:icon="@drawable/key_volume_up"
+            app:key="@string/key_key_volume_up"
+            app:title="@string/title_key_volume_up" />
+        <Preference
+            app:icon="@drawable/key_volume_down"
+            app:key="@string/key_key_volume_down"
+            app:title="@string/title_key_volume_down" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,40 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <string-array name="action_entries">
+        <item>Default</item>
+        <item>Back</item>
+        <item>Home</item>
+        <item>Switch app</item>
+        <item>Screenshot</item>
+        <item>Lock screen</item>
+        <item>Power dialog</item>
+        <item>Notifications</item>
+        <item>Quick settings</item>
+        <item>Split screen</item>
+        <item>Headset</item>
+    </string-array>
+
+    <string-array name="action_values">
+        <item>default</item>
+        <item>back</item>
+        <item>home</item>
+        <item>switch_app</item>
+        <item>screenshot</item>
+        <item>lock_screen</item>
+        <item>notifications</item>
+        <item>quick_settings</item>
+        <item>split_screen</item>
+        <item>headset</item>
+    </string-array>
+
+</resources>

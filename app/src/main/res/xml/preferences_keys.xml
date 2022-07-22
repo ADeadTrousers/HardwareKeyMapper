@@ -1,0 +1,45 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/title_settings_keys">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/key_home"
+            app:key="@string/key_key_home"
+            app:title="@string/title_key_home" />
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/key_back"
+            app:key="@string/key_key_back"
+            app:title="@string/title_key_back" />
+        <SwitchPreference
+            app:icon="@drawable/key_menu"
+            app:key="@string/key_key_menu"
+            app:title="@string/title_key_menu" />
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/key_search"
+            app:key="@string/key_key_search"
+            app:title="@string/title_key_search" />
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/key_app_switch"
+            app:key="@string/key_key_app_switch"
+            app:title="@string/title_key_app_switch" />
+        <SwitchPreference
+            app:icon="@drawable/key_camera"
+            app:key="@string/key_key_camera"
+            app:title="@string/title_key_camera" />
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/key_volume_up"
+            app:key="@string/key_key_volume_up"
+            app:title="@string/title_key_volume_up" />
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/key_volume_down"
+            app:key="@string/key_key_volume_down"
+            app:title="@string/title_key_volume_down" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

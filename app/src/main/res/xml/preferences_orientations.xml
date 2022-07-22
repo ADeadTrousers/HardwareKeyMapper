@@ -1,0 +1,25 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="@string/title_settings_orientations">
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/device_portrait_bottom"
+            app:key="@string/orientation_portrait_bottom"
+            app:title="@string/title_portrait_bottom" />
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/device_landscape_left"
+            app:key="@string/orientation_landscape_left"
+            app:title="@string/title_landscape_left" />
+        <SwitchPreference
+            app:icon="@drawable/device_portrait_top"
+            app:key="@string/orientation_portrait_top"
+            app:title="@string/title_portrait_top" />
+        <SwitchPreference
+            android:defaultValue="true"
+            app:icon="@drawable/device_landscape_right"
+            app:key="@string/orientation_landscape_right"
+            app:title="@string/title_landscape_right" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

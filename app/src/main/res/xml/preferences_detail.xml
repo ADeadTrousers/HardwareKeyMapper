@@ -1,0 +1,41 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:title="@string/title_detail_action">
+        <ListPreference
+            app:entries="@array/action_entries"
+            app:entryValues="@array/action_values"
+            app:key="@string/key_action_short_press"
+            app:title="@string/title_action_short_press"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            app:entries="@array/action_entries"
+            app:entryValues="@array/action_values"
+            app:key="@string/key_action_long_press"
+            app:title="@string/title_action_long_press"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/title_detail_overlay">
+        <EditTextPreference
+            app:key="@string/key_overlay_app"
+            android:selectAllOnFocus="true"
+            app:singleLine="true"
+            app:title="@string/title_overlay_app"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:key="@string/key_overlay_intent_down"
+            android:selectAllOnFocus="true"
+            app:singleLine="true"
+            app:title="@string/title_overlay_intent_down"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:key="@string/key_overlay_intent_up"
+            android:selectAllOnFocus="true"
+            app:singleLine="true"
+            app:title="@string/title_overlay_intent_up"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
