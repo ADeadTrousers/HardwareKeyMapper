@@ -1,8 +1,22 @@
 <resources>
     <string name="app_name">Hardware Key Mapper</string>
+    <string name="app_description">Using accessibility service to map hardware backed keys to different actions.</string>
     <string name="title_mapping">Hardware Key Mapper</string>
 
     <!-- Main Preference Titles -->
+    <string name="title_service_switch">Accessibility Settings</string>
+
+    <string name="summary_service_switch_enable">
+        Hardware Key Mapper is DISABLED. To enable, tap this and then turn Hardware Key Mapper in the
+        Services section to ON.
+    </string>
+    <string name="summary_service_switch_disable">
+        Hardware Key Mapper is ENABLED. To disable, tap this and then turn Hardware Key Mapper in the
+        Services section to OFF.
+    </string>
+    <string name="log_service_switch_disabled">Show enable instruction</string>
+    <string name="log_service_switch_enabled">Show disable instruction</string>
+
     <string name="title_portrait_bottom">Portrait (keys on bottom)</string>
     <string name="title_landscape_right">Landscape (keys on right)</string>
     <string name="title_portrait_top">Portrait (keys on top)</string>
@@ -27,12 +41,22 @@
     <string name="title_overlay_intent_down">Intent key down</string>
     <string name="title_overlay_intent_up">Intent key up</string>
 
+    <string name="title_detail_clear_all">Clear All</string>
+    <string name="title_detail_clear_actions">Clear Actions</string>
+    <string name="title_detail_clear_overlay">Clear Overlay</string>
+    <string name="title_detail_clear_short_press">Clear Short press</string>
+    <string name="title_detail_clear_long_press">Clear Long press</string>
+    <string name="title_detail_clear_app">Clear App</string>
+    <string name="title_detail_clear_intent_key_down">Clear Intent key down</string>
+    <string name="title_detail_clear_intent_key_up">Clear Intent key up</string>
+
     <!-- Settings Screen Titles -->
     <string name="title_settings">Settings</string>
     <string name="title_settings_keys">Active hardware keys</string>
     <string name="title_settings_orientations">Active screen orientations</string>
 
     <!-- Key Strings for text replacement -->
+    <string name="key_service_switch">service_enabled</string>
     <string name="key_title_orientation">title</string>
     <string name="key_key_home">key_home</string>
     <string name="key_key_back">key_back</string>

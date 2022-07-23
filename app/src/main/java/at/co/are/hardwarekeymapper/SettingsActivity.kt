@@ -4,11 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.Settings
+import android.text.TextUtils.SimpleStringSplitter
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
@@ -19,24 +25,24 @@ class SettingsActivity : AppCompatActivity(),
 
     companion object {
         lateinit  var appContext: Context
+        const val TAG = "HardwareKeyMapperSettingsActivity"
     }
 
-    private var settingsVisible = true
+    private var optionsMenu = R.menu.settings_menu
     private lateinit var preferencesMappings : CompositeMappingsPreferenceFragmentCompat
     private lateinit var preferencesOrientationsKeys : OrientationsKeysPreferenceFragmentCompat
 
-    private fun changeActionBar(headline: String = "", subtitle: String = "") {
+    private fun changeActionBar(optionsMenu: Int, headline: String = "", subtitle: String = "") {
         if (headline.isNotEmpty()) {
             title = headline
             supportActionBar?.subtitle = subtitle
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            settingsVisible = false
         } else {
             title = getString(R.string.title_mapping)
             supportActionBar?.subtitle = subtitle
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            settingsVisible = true
         }
+        this.optionsMenu = optionsMenu
         invalidateOptionsMenu()
     }
 
@@ -47,10 +53,9 @@ class SettingsActivity : AppCompatActivity(),
             .commit()
     }
 
-    private fun navigateFragment(fragment: Fragment?, caller: Fragment?, args: Bundle?): Boolean {
+    private fun navigateFragment(fragment: Fragment?, args: Bundle?): Boolean {
         if (fragment != null) {
             fragment.arguments = args
-            fragment.setTargetFragment(caller, 0)
             // Replace the existing Fragment with the new Fragment
             supportFragmentManager.beginTransaction()
                 .replace(R.id.settings, fragment)
@@ -68,8 +73,6 @@ class SettingsActivity : AppCompatActivity(),
 
         preferencesMappings = CompositeMappingsPreferenceFragmentCompat()
         preferencesOrientationsKeys = OrientationsKeysPreferenceFragmentCompat()
-        //PreferenceManager.setDefaultValues(this, R.xml.preferences_keys, false)
-        //PreferenceManager.setDefaultValues(this, R.xml.preferences_orientations, false)
 
         if (savedInstanceState == null) {
             initializeNavigation()
@@ -79,7 +82,7 @@ class SettingsActivity : AppCompatActivity(),
 
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
-                changeActionBar()
+                changeActionBar(R.menu.settings_menu)
                 preferencesMappings.updatePreferences()
             }
         }
@@ -91,27 +94,66 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.settings_menu, menu)
-        menu.findItem(R.id.settings_menu_item)?.isVisible = settingsVisible
+        if (optionsMenu > 0) {
+            val inflater: MenuInflater = menuInflater
+            inflater.inflate(optionsMenu,menu)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem)= when (item.itemId) {
         R.id.settings_menu_item -> {
             if (supportFragmentManager.backStackEntryCount == 0) {
-                val currentFragment =
-                    supportFragmentManager.fragments[supportFragmentManager.backStackEntryCount]
-                if (navigateFragment(preferencesOrientationsKeys,currentFragment,null)) {
-                    changeActionBar(item.title as String)
+                if (navigateFragment(preferencesOrientationsKeys,null)) {
                     preferencesMappings.prepareMappingsUpdate = true
+                    changeActionBar(0,item.title as String)
                 }
             }
+            true
+        }
+        R.id.detail_menu_clear_actions -> {
+            getCurrentActions()?.clearPreferences(shortPress = true, longPress = true)
+            true
+        }
+        R.id.detail_menu_clear_overlay -> {
+            getCurrentActions()?.clearPreferences(app = true, intentDown = true, intentUp = true)
+            true
+        }
+        R.id.detail_menu_clear_all -> {
+            getCurrentActions()?.clearPreferences(shortPress = true, longPress = true, app = true, intentDown = true, intentUp = true)
+            true
+        }
+        R.id.detail_menu_clear_short_press -> {
+            getCurrentActions()?.clearPreferences(shortPress = true)
+            true
+        }
+        R.id.detail_menu_clear_long_press -> {
+            getCurrentActions()?.clearPreferences(longPress = true)
+            true
+        }
+        R.id.detail_menu_clear_app -> {
+            getCurrentActions()?.clearPreferences(app = true)
+            true
+        }
+        R.id.detail_menu_clear_intent_down -> {
+            getCurrentActions()?.clearPreferences(intentDown = true)
+            true
+        }
+        R.id.detail_menu_clear_intent_up -> {
+            getCurrentActions()?.clearPreferences(intentUp = true)
             true
         }
         else -> {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun getCurrentActions(): CompositeActionsPreferenceFragmentCompat? {
+        val fragment = supportFragmentManager.fragments.last()
+        if (fragment is CompositeActionsPreferenceFragmentCompat) {
+            return fragment
+        }
+        return null
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -132,8 +174,8 @@ class SettingsActivity : AppCompatActivity(),
         pref: Preference
     ): Boolean {
         val fragment = preferencesMappings.findActionsFragment(pref.key)
-        if (navigateFragment(fragment,caller,pref.extras)) {
-            changeActionBar(pref.title as String,pref.parent?.title as String)
+        if (navigateFragment(fragment,pref.extras)) {
+            changeActionBar(R.menu.details_menu,pref.title as String,pref.parent?.title as String)
             preferencesMappings.prepareActionsFragmentUpdate = fragment
         }
         return true
@@ -156,26 +198,53 @@ class SettingsActivity : AppCompatActivity(),
             availableActionEntries = appContext.resources.getStringArray(R.array.action_entries)
         }
 
-        private fun modifyPreference(actionRes: Int, orientationKey: String, default: Any? = null) {
+        private fun modifyPreference(actionRes: Int, default: String) {
             val action = getString(actionRes)
             val preference = findPreference<Preference>(action)
             preference?.key = orientationKey+"_"+action
-            if (default != null) {
-                preference?.setDefaultValue(default)
+
+            if (preference is ListPreference) {
+                preference.value = preference.sharedPreferences?.getString(preference.key, default)
+            } else if (preference is EditTextPreference) {
+                preference.text = preference.sharedPreferences?.getString(preference.key, default)
             }
         }
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences_detail, rootKey)
             modifyPreference(R.string.key_action_short_press,availableActionValues[0])
-            modifyPreference(R.string.key_action_long_press,orientationKey,availableActionValues[0])
-            modifyPreference(R.string.key_overlay_app,orientationKey)
-            modifyPreference(R.string.key_overlay_intent_down,orientationKey)
-            modifyPreference(R.string.key_overlay_intent_up,orientationKey)
+            modifyPreference(R.string.key_action_long_press,availableActionValues[0])
+            modifyPreference(R.string.key_overlay_app,"")
+            modifyPreference(R.string.key_overlay_intent_down,"")
+            modifyPreference(R.string.key_overlay_intent_up,"")
+        }
+        fun clearPreferences(
+            shortPress: Boolean = false,
+            longPress: Boolean = false,
+            app: Boolean = false,
+            intentDown: Boolean = false,
+            intentUp: Boolean = false
+        ) {
+            clearPreference(R.string.key_action_short_press,shortPress,availableActionValues[0])
+            clearPreference(R.string.key_action_long_press,longPress,availableActionValues[0])
+            clearPreference(R.string.key_overlay_app,app,"")
+            clearPreference(R.string.key_overlay_intent_down,intentDown,"")
+            clearPreference(R.string.key_overlay_intent_up,intentUp,"")
+        }
+        private fun clearPreference(actionRes: Int, clear: Boolean, default: String) {
+            if (clear) {
+                val action = orientationKey+"_"+getString(actionRes)
+                val preference = findPreference<Preference>(action)
+                if (preference is ListPreference) {
+                    preference.value = default
+                } else if (preference is EditTextPreference) {
+                    preference.text = default
+                }
+            }
         }
     }
 
     class CompositeMappingsPreferenceFragmentCompat : PreferenceFragmentCompat() {
-        var prepareMappingsUpdate: Boolean = false
+        var prepareMappingsUpdate: Boolean = true
         var prepareActionsFragmentUpdate: CompositeActionsPreferenceFragmentCompat? = null
 
         private var prepareSummariesUpdate: Boolean = true
@@ -192,7 +261,7 @@ class SettingsActivity : AppCompatActivity(),
                 CompositeActionsPreferenceFragmentCompat(orientationKey)
         }
 
-        private fun modifyTitle(orientation: String, keyRes: Int, title: String, icon: Drawable) {
+        private fun modifyTitle(orientation: String, keyRes: Int, title: String, icon: Drawable?) {
             val key = getString(keyRes)
             val preference = findPreference<Preference>(key)
             preference?.key = orientation + "_" + key
@@ -206,7 +275,7 @@ class SettingsActivity : AppCompatActivity(),
 
         private fun modifyOrientation(orientationRes: Int, titleRes: Int, iconRes: Int) {
             val orientation = getString(orientationRes)
-            val icon = appContext.resources.getDrawable(iconRes, requireContext().theme)
+            val icon = ResourcesCompat.getDrawable(resources, iconRes, requireContext().theme)
             modifyTitle(orientation, R.string.key_title_orientation, getString(titleRes), icon)
             modifyPreference(orientation, R.string.key_key_app_switch)
             modifyPreference(orientation, R.string.key_key_back)
@@ -219,7 +288,8 @@ class SettingsActivity : AppCompatActivity(),
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.preferences_mappings, rootKey)
+            setPreferencesFromResource(R.xml.preferences_service, rootKey)
+            addPreferencesFromResource(R.xml.preferences_mappings)
             modifyOrientation(
                 R.string.orientation_portrait_bottom,
                 R.string.title_portrait_bottom,
@@ -246,6 +316,8 @@ class SettingsActivity : AppCompatActivity(),
         }
 
         fun updatePreferences() {
+            updateAccessibilityServiceSummary()
+
             val sharedPreferences = preferenceManager?.sharedPreferences
                 ?: return
 
@@ -255,7 +327,7 @@ class SettingsActivity : AppCompatActivity(),
             }
             if (prepareSummariesUpdate) {
                 for (actionFragment in subsidiaryActionsFragments) {
-                    updateSummary(sharedPreferences, actionFragment.key,true)
+                    updateSummary(sharedPreferences, actionFragment.key)
                 }
                 prepareSummariesUpdate = false
                 prepareActionsFragmentUpdate = null
@@ -263,10 +335,41 @@ class SettingsActivity : AppCompatActivity(),
                 val keys =
                     subsidiaryActionsFragments.filterValues { it == prepareActionsFragmentUpdate }.keys
                 for (key in keys) {
-                    updateSummary(sharedPreferences, key,false)
+                    updateSummary(sharedPreferences, key)
                 }
                 prepareActionsFragmentUpdate = null
             }
+        }
+
+        private fun updateAccessibilityServiceSummary() {
+            val serviceEnabled = findPreference<Preference>(getString(R.string.key_service_switch))
+            if (!accessibilityServiceEnabled()) {
+                Log.d(TAG, getString(R.string.log_service_switch_disabled))
+                serviceEnabled?.summary = getString(R.string.summary_service_switch_enable)
+            } else {
+                Log.d(TAG, getString(R.string.log_service_switch_enabled))
+                serviceEnabled?.summary = getString(R.string.summary_service_switch_disable)
+            }
+        }
+
+        private fun accessibilityServiceEnabled(): Boolean {
+            val service = requireActivity().packageName + "/" + HardwareKeyMapperService::class.java.canonicalName
+            Log.v(TAG, service)
+            val stringColonSplitter = SimpleStringSplitter(':')
+            val settingValue = Settings.Secure.getString(
+                requireActivity().applicationContext.contentResolver,
+                Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+            )
+            if (settingValue != null) {
+                stringColonSplitter.setString(settingValue)
+                while (stringColonSplitter.hasNext()) {
+                    val accessibilityService = stringColonSplitter.next()
+                    if (accessibilityService.equals(service, ignoreCase = true)) {
+                        return true
+                    }
+                }
+            }
+            return false
         }
 
         private fun updateMappings(sharedPreferences: SharedPreferences) {
@@ -301,19 +404,21 @@ class SettingsActivity : AppCompatActivity(),
             for (orientation in orientationStates) {
                 val preferenceTitle =
                     findPreference<Preference>(orientation.key + "_" + orientationTitle)
-                preferenceTitle?.isVisible = orientation.value
+                var groupVisible = false
                 for (key in keyStates) {
                     val preferenceMapping =
                         findPreference<Preference>(orientation.key + "_" + key.key)
-                    preferenceMapping?.isVisible = (orientation.value and key.value)
+                    val preferenceVisible = (orientation.value and key.value)
+                    groupVisible = (groupVisible or preferenceVisible)
+                    preferenceMapping?.isVisible = preferenceVisible
                 }
+                preferenceTitle?.isVisible = groupVisible
             }
         }
 
         private fun updateSummary(
             sharedPreferences: SharedPreferences,
-            key: String,
-            updateValues: Boolean
+            key: String
         ) {
             val preferenceMapping = findPreference<Preference>(key)
 
@@ -331,26 +436,16 @@ class SettingsActivity : AppCompatActivity(),
 
             var summaryString = getString(R.string.title_action_short_press) + ": "
             summaryString += getActionListTitle(valueShortPress!!)
-            summaryString += ", "+getString(R.string.title_action_long_press) + ": "
+            summaryString += "\n"+getString(R.string.title_action_long_press) + ": "
             summaryString += getActionListTitle(valueLongPress!!)
 
             if (valueOverlayApp!!.isNotEmpty()) {
                 if ((valueOverlayIntentDown!!.isNotEmpty()) || (valueOverlayIntentUp!!.isNotEmpty())) {
-                    summaryString += ", "+getString(R.string.title_detail_overlay)+": "+getString(R.string.title_detail_overlay_active)
+                    summaryString += "\n"+getString(R.string.title_detail_overlay)+": "+getString(R.string.title_detail_overlay_active)
                 }
             }
 
             preferenceMapping?.summary = summaryString
-
-            if (updateValues) {
-                sharedPreferences.edit()
-                    .putString(keyShortPress,valueShortPress)
-                    .putString(keyLongPress,valueShortPress)
-                    .putString(keyOverlayApp,valueOverlayApp)
-                    .putString(keyOverlayIntentDown,valueOverlayIntentDown)
-                    .putString(keyOverlayIntentUp,valueOverlayIntentUp)
-                    .apply()
-            }
         }
 
         private fun getActionListTitle(

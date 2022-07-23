@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/detail_menu_clear_all"
+        android:title="@string/title_detail_clear_all" />
+    <item
+        android:id="@+id/detail_menu_clear_actions"
+        android:title="@string/title_detail_clear_actions" />
+    <item
+        android:id="@+id/detail_menu_clear_overlay"
+        android:title="@string/title_detail_clear_overlay" />
+    <item
+        android:id="@+id/detail_menu_clear_short_press"
+        android:title="@string/title_detail_clear_short_press" />
+    <item
+        android:id="@+id/detail_menu_clear_long_press"
+        android:title="@string/title_detail_clear_long_press" />
+    <item
+        android:id="@+id/detail_menu_clear_app"
+        android:title="@string/title_detail_clear_app" />
+    <item
+        android:id="@+id/detail_menu_clear_intent_down"
+        android:title="@string/title_detail_clear_intent_key_down" />
+    <item
+        android:id="@+id/detail_menu_clear_intent_up"
+        android:title="@string/title_detail_clear_intent_key_up" />
+</menu>

@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:icon="@drawable/key_service"
+        android:key="@string/key_service_switch"
+        android:title="@string/title_service_switch">
+        <intent android:action="android.settings.ACCESSIBILITY_SETTINGS" />
+    </Preference>
+</PreferenceScreen>
