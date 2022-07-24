@@ -16,6 +16,10 @@
     </string>
     <string name="log_service_switch_disabled">Show enable instruction</string>
     <string name="log_service_switch_enabled">Show disable instruction</string>
+    <string name="log_service_portrait_bottom">Portrait 0 - buttons on the bottom</string>
+    <string name="log_service_landscape_right">Landscape 90 - buttons on the right</string>
+    <string name="log_service_portrait_top">Portrait 180 - buttons on the top</string>
+    <string name="log_service_landscape_left">Landscape 270 - buttons on the left</string>
 
     <string name="title_portrait_bottom">Portrait (keys on bottom)</string>
     <string name="title_landscape_right">Landscape (keys on right)</string>
