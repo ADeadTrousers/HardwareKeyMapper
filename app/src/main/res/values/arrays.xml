@@ -31,6 +31,7 @@
         <item>switch_app</item>
         <item>screenshot</item>
         <item>lock_screen</item>
+        <item>power_dialog</item>
         <item>notifications</item>
         <item>quick_settings</item>
         <item>split_screen</item>

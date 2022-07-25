@@ -14,10 +14,6 @@ import androidx.preference.PreferenceManager
 class HardwareKeyMapperService : AccessibilityService() {
     companion object {
         private const val TAG = "HardwareKeyMapperService"
-        lateinit var availableActionValues: Array<String>
-    }
-    init {
-        availableActionValues = SettingsActivity.appContext.resources.getStringArray(R.array.action_values)
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {}
@@ -32,7 +28,6 @@ class HardwareKeyMapperService : AccessibilityService() {
             action != KeyEvent.ACTION_UP
             && action != KeyEvent.ACTION_DOWN
         ) return false
-        Log.d(TAG,"KeyAction = "+action.toString())
 // Quick Leave when not the supported hardware key
         val keyRes = when (event.keyCode) {
             KeyEvent.KEYCODE_HOME -> R.string.key_key_home
@@ -67,47 +62,23 @@ class HardwareKeyMapperService : AccessibilityService() {
                 else -> return false
             }
 // Check the global settings first
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val deviceSettings = DeviceSettings.getCurrentDeviceSettings(PreferenceManager.getDefaultSharedPreferences(this),this)
 // Check if key mapping is active
-        val keyName = getString(keyRes)
-        if (keyRes == R.string.key_key_menu || keyRes == R.string.key_key_camera) {
-            if (!sharedPreferences.getBoolean(keyName, false)) return false
-        } else {
-            if (!sharedPreferences.getBoolean(keyName, true)) return false
-        }
+        if (!deviceSettings.isKeyActive(keyRes)) return false
 // Check if orientation mapping is active
-        val orientationName = getString(orientationRes)
-        if (orientationRes == R.string.orientation_portrait_top) {
-            if (!sharedPreferences.getBoolean(orientationName, false)) return false
-        } else {
-            if (!sharedPreferences.getBoolean(orientationName, true)) return false
-        }
+        if (!deviceSettings.isOrientationActive(orientationRes)) return false
 
-        val orientationKey = orientationName + "_" + keyName
 // Check and run Overlay
-        val overlayApp = sharedPreferences.getString(
-            orientationKey + "_" + getString(R.string.key_overlay_app),
-            ""
-        )
-        val overlayIntentDown = sharedPreferences.getString(
-            orientationKey + "_" + getString(R.string.key_overlay_intent_down),
-            ""
-        )
-        val overlayIntentUp = sharedPreferences.getString(
-            orientationKey + "_" + getString(R.string.key_overlay_intent_up),
-            ""
-        )
+        val overlayApp = deviceSettings.getOrientationKeyActionValue(orientationRes,keyRes,R.string.key_overlay_app)
+        val overlayIntentDown = deviceSettings.getOrientationKeyActionValue(orientationRes,keyRes,R.string.key_overlay_intent_down)
+        val overlayIntentUp = deviceSettings.getOrientationKeyActionValue(orientationRes,keyRes,R.string.key_overlay_intent_up)
+
         if (executeOverlay(overlayApp, overlayIntentDown, overlayIntentUp, action, event.isLongPress)) return true
 // Check and run Actions
-        val actionShortPress = sharedPreferences.getString(
-            orientationKey + "_" + getString(R.string.key_action_short_press),
-            availableActionValues[0]
-        )
-        val actionLongPress = sharedPreferences.getString(
-            orientationKey + "_" + getString(R.string.key_action_long_press),
-            availableActionValues[0]
-        )
-        if (executeAction(actionShortPress, actionLongPress, action, event.isLongPress)) return true
+        val actionShortPress = deviceSettings.getOrientationKeyActionValue(orientationRes,keyRes,R.string.key_action_short_press)
+        val actionLongPress = deviceSettings.getOrientationKeyActionValue(orientationRes,keyRes,R.string.key_action_long_press)
+
+        if (executeAction(actionShortPress, actionLongPress, action, event.isLongPress,deviceSettings)) return true
 // Default if nothing was executed
         return false
     }
@@ -142,24 +113,24 @@ class HardwareKeyMapperService : AccessibilityService() {
         return false
     }
 
-    private fun executeAction(actionShortPress: String?, actionLongPress: String?, action: Int, isLongPress: Boolean): Boolean {
+    private fun executeAction(actionShortPress: String?, actionLongPress: String?, action: Int, isLongPress: Boolean, deviceSettings: DeviceSettings): Boolean {
         fun performSingleAction(action: Int): Boolean {
             performGlobalAction(action)
             return true
         }
         fun performEventAction(actionEvent: String?): Boolean {
             return when(actionEvent) {
-                availableActionValues[0] -> false
-                availableActionValues[1] -> performSingleAction(GLOBAL_ACTION_BACK)
-                availableActionValues[2] -> performSingleAction(GLOBAL_ACTION_HOME)
-                availableActionValues[3] -> performSingleAction(GLOBAL_ACTION_RECENTS)
-                availableActionValues[4] -> performSingleAction(GLOBAL_ACTION_TAKE_SCREENSHOT)
-                availableActionValues[5] -> performSingleAction(GLOBAL_ACTION_LOCK_SCREEN)
-                availableActionValues[6] -> performSingleAction(GLOBAL_ACTION_POWER_DIALOG)
-                availableActionValues[7] -> performSingleAction(GLOBAL_ACTION_NOTIFICATIONS)
-                availableActionValues[8] -> performSingleAction(GLOBAL_ACTION_QUICK_SETTINGS)
-                availableActionValues[9] -> performSingleAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
-        //       availableActionValues[10] -> return performLocalAction(GLOBAL_ACTION_KEYCODE_HEADSETHOOK)
+                deviceSettings.availableActionValues[0] -> false
+                deviceSettings.availableActionValues[1] -> performSingleAction(GLOBAL_ACTION_BACK)
+                deviceSettings.availableActionValues[2] -> performSingleAction(GLOBAL_ACTION_HOME)
+                deviceSettings.availableActionValues[3] -> performSingleAction(GLOBAL_ACTION_RECENTS)
+                deviceSettings.availableActionValues[4] -> performSingleAction(GLOBAL_ACTION_TAKE_SCREENSHOT)
+                deviceSettings.availableActionValues[5] -> performSingleAction(GLOBAL_ACTION_LOCK_SCREEN)
+                deviceSettings.availableActionValues[6] -> performSingleAction(GLOBAL_ACTION_POWER_DIALOG)
+                deviceSettings.availableActionValues[7] -> performSingleAction(GLOBAL_ACTION_NOTIFICATIONS)
+                deviceSettings.availableActionValues[8] -> performSingleAction(GLOBAL_ACTION_QUICK_SETTINGS)
+                deviceSettings.availableActionValues[9] -> performSingleAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
+        //       deviceSettings.availableActionValues[10] -> return performLocalAction(GLOBAL_ACTION_KEYCODE_HEADSETHOOK)
                 else -> false
             }
         }
