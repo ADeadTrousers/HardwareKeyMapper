@@ -33,6 +33,10 @@
             app:icon="@drawable/key_volume_down"
             app:key="@string/key_key_volume_down"
             app:title="@string/title_key_volume_down" />
+        <Preference
+            app:icon="@drawable/key_unknown"
+            app:key="@string/key_key_unknown"
+            app:title="@string/title_key_unknown" />
     </PreferenceCategory>
 
 </PreferenceScreen>

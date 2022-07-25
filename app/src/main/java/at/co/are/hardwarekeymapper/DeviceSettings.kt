@@ -21,13 +21,14 @@ abstract class DeviceSettings(
         R.string.key_key_app_switch,
         R.string.key_key_camera,
         R.string.key_key_volume_up,
-        R.string.key_key_volume_down)
-//    val availableActions = intArrayOf(
-//        R.string.key_action_short_press,
-//        R.string.key_action_long_press,
-//        R.string.key_overlay_app,
-//        R.string.key_overlay_intent_down,
-//        R.string.key_overlay_intent_up)
+        R.string.key_key_volume_down,
+        R.string.key_key_unknown)
+    val availableActions = intArrayOf(
+        R.string.key_action_short_press,
+        R.string.key_action_long_press,
+        R.string.key_overlay_app,
+        R.string.key_overlay_intent_down,
+        R.string.key_overlay_intent_up)
 
     var availableActionValues: Array<String> = context.resources.getStringArray(R.array.action_values)
     private var availableActionEntries: Array<String> = context.resources.getStringArray(R.array.action_entries)
@@ -75,7 +76,7 @@ abstract class DeviceSettings(
     fun getActionString(actionRes: Int): String {
         return getResourceString(actionRes)
     }
-    private fun getOrientationString(orientationRes: Int): String {
+    fun getOrientationString(orientationRes: Int): String {
         return getResourceString(orientationRes)
     }
     fun getOrientationTitleString(orientationRes: Int): String {

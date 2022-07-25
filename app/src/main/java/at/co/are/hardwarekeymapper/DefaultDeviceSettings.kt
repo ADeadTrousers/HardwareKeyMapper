@@ -13,6 +13,7 @@ class DefaultDeviceSettings(sharedPreferences: SharedPreferences,
             R.string.key_key_camera -> false
             R.string.key_key_search -> false
             R.string.key_key_menu -> false
+            R.string.key_key_unknown -> false
             else -> true
         }
     }

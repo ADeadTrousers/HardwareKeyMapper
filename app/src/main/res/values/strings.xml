@@ -34,6 +34,7 @@
     <string name="title_key_camera">Camera key</string>
     <string name="title_key_volume_up">Volume up key</string>
     <string name="title_key_volume_down">Volume down key</string>
+    <string name="title_key_unknown">Unknown</string>
 
     <!-- Hardware Key Actions -->
     <string name="title_detail_action">Actions</string>
@@ -70,6 +71,7 @@
     <string name="key_key_camera">key_camera</string>
     <string name="key_key_volume_up">key_volume_up</string>
     <string name="key_key_volume_down">key_volume_down</string>
+    <string name="key_key_unknown">key_unknown</string>
 
     <string name="orientation_portrait_bottom">portrait_bottom</string>
     <string name="orientation_portrait_top">portrait_top</string>

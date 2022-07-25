@@ -11,10 +11,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.preference.EditTextPreference
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.*
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
@@ -180,10 +177,39 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class OrientationsKeysPreferenceFragmentCompat : PreferenceFragmentCompat() {
+        private lateinit var deviceSettings : DeviceSettings
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            deviceSettings = DeviceSettings.getCurrentDeviceSettings(preferenceManager.sharedPreferences!!, appContext)
+
             setPreferencesFromResource(R.xml.preferences_keys, rootKey)
             addPreferencesFromResource(R.xml.preferences_orientations)
+
+            for (key in deviceSettings.availableKeys) {
+                modifyKey(key)
+            }
+            for (orientation in deviceSettings.availableOrientations) {
+                modifyOrientation(orientation)
+            }
         }
+
+        private fun modifyKey(keyRes: Int) {
+            val key = deviceSettings.getKeyString(keyRes)
+            val preference = findPreference<Preference>(key)
+
+            if (preference is SwitchPreference) {
+                preference.isChecked = deviceSettings.isKeyActive(keyRes)
+            }
+        }
+        private fun modifyOrientation(orientationRes: Int) {
+            val orientation = deviceSettings.getOrientationString(orientationRes)
+            val preference = findPreference<Preference>(orientation)
+
+            if (preference is SwitchPreference) {
+                preference.isChecked = deviceSettings.isOrientationActive(orientationRes)
+            }
+        }
+
     }
 
     class CompositeActionsPreferenceFragmentCompat(
@@ -205,11 +231,9 @@ class SettingsActivity : AppCompatActivity(),
         }
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences_detail, rootKey)
-            modifyPreference(R.string.key_action_short_press)
-            modifyPreference(R.string.key_action_long_press)
-            modifyPreference(R.string.key_overlay_app)
-            modifyPreference(R.string.key_overlay_intent_down)
-            modifyPreference(R.string.key_overlay_intent_up)
+            for (action in deviceSettings.availableActions) {
+                modifyPreference(action)
+            }
         }
         fun clearPreferences(
             shortPress: Boolean = false,
@@ -273,13 +297,9 @@ class SettingsActivity : AppCompatActivity(),
         private fun modifyOrientation(orientationRes: Int, titleRes: Int, iconRes: Int) {
             modifyTitle(orientationRes, R.string.key_title_orientation, titleRes, iconRes)
             modifyPreference(orientationRes, R.string.key_key_app_switch)
-            modifyPreference(orientationRes, R.string.key_key_back)
-            modifyPreference(orientationRes, R.string.key_key_camera)
-            modifyPreference(orientationRes, R.string.key_key_home)
-            modifyPreference(orientationRes, R.string.key_key_menu)
-            modifyPreference(orientationRes, R.string.key_key_search)
-            modifyPreference(orientationRes, R.string.key_key_volume_down)
-            modifyPreference(orientationRes, R.string.key_key_volume_up)
+            for (key in deviceSettings.availableKeys) {
+                modifyPreference(orientationRes, key)
+            }
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

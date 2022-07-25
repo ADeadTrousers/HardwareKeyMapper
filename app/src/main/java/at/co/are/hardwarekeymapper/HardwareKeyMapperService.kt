@@ -38,6 +38,7 @@ class HardwareKeyMapperService : AccessibilityService() {
             KeyEvent.KEYCODE_CAMERA -> R.string.key_key_camera
             KeyEvent.KEYCODE_VOLUME_DOWN -> R.string.key_key_volume_down
             KeyEvent.KEYCODE_VOLUME_UP -> R.string.key_key_volume_up
+            KeyEvent.KEYCODE_UNKNOWN -> R.string.key_key_unknown
             else -> return false
         }
 // Quick Leave when not the supported screen orientation
