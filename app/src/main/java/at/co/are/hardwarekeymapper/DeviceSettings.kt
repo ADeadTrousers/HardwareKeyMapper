@@ -109,8 +109,8 @@ abstract class DeviceSettings(
         val valueOverlayIntentDown = getOrientationKeyActionValue(orientationRes,keyRes,R.string.key_overlay_intent_down)
         val valueOverlayIntentUp = getOrientationKeyActionValue(orientationRes,keyRes,R.string.key_overlay_intent_up)
 
-        if (valueOverlayApp!!.isNotEmpty()) {
-            if ((valueOverlayIntentDown!!.isNotEmpty()) || (valueOverlayIntentUp!!.isNotEmpty())) {
+        if (valueOverlayApp != null && valueOverlayApp.isNotEmpty()) {
+            if ((valueOverlayIntentDown != null && valueOverlayIntentDown.isNotEmpty()) || (valueOverlayIntentUp != null && valueOverlayIntentUp.isNotEmpty())) {
                 summaryString += "\n"+getResourceString(R.string.title_detail_overlay)+": "+getResourceString(R.string.title_detail_overlay_active)
             }
         }
