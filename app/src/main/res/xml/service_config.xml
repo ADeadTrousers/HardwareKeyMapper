@@ -5,5 +5,4 @@
     android:accessibilityFeedbackType="feedbackHaptic"
     android:accessibilityFlags="flagRequestFilterKeyEvents"
     android:description="@string/app_description"
-    android:accessibilityEventTypes="typeViewClicked|typeViewLongClicked"
     android:packageNames=""/>

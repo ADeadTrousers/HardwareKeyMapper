@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils.SimpleStringSplitter
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -23,7 +22,6 @@ class SettingsActivity : AppCompatActivity(),
 
     companion object {
         lateinit var appContext: Context
-        const val TAG = "HardwareKeyMapperSettingsActivity"
     }
 
     private var optionsMenu = R.menu.settings_menu
@@ -363,17 +361,14 @@ class SettingsActivity : AppCompatActivity(),
         private fun updateAccessibilityServiceSummary() {
             val serviceEnabled = findPreference<Preference>(getString(R.string.key_service_switch))
             if (!accessibilityServiceEnabled()) {
-                Log.d(TAG, getString(R.string.log_service_switch_disabled))
                 serviceEnabled?.summary = getString(R.string.summary_service_switch_enable)
             } else {
-                Log.d(TAG, getString(R.string.log_service_switch_enabled))
                 serviceEnabled?.summary = getString(R.string.summary_service_switch_disable)
             }
         }
 
         private fun accessibilityServiceEnabled(): Boolean {
             val service = requireActivity().packageName + "/" + HardwareKeyMapperService::class.java.canonicalName
-            Log.v(TAG, service)
             val stringColonSplitter = SimpleStringSplitter(':')
             val settingValue = Settings.Secure.getString(
                 requireActivity().applicationContext.contentResolver,

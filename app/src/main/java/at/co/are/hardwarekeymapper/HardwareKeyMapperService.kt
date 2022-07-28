@@ -2,24 +2,21 @@ package at.co.are.hardwarekeymapper
 
 import android.accessibilityservice.AccessibilityService
 import android.app.usage.UsageStatsManager
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.hardware.display.DisplayManager
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.Display
 import android.view.KeyEvent
 import android.view.Surface
 import android.view.ViewConfiguration
 import android.view.accessibility.AccessibilityEvent
+import android.widget.Toast
 import androidx.preference.PreferenceManager
 import java.util.*
 
 class HardwareKeyMapperService : AccessibilityService() {
-    companion object {
-        private const val TAG = "HardwareKeyMapperService"
-    }
-
     private var longPressHandler : Handler? = null
     private var globalLongPressed = false
 
@@ -71,19 +68,15 @@ class HardwareKeyMapperService : AccessibilityService() {
         val orientationRes =
             when ((getSystemService(DISPLAY_SERVICE) as DisplayManager).getDisplay(Display.DEFAULT_DISPLAY).rotation) {
                 Surface.ROTATION_0 -> {
-                    Log.d(TAG, getString(R.string.log_service_portrait_bottom))
                     R.string.orientation_portrait_bottom
                 }
                 Surface.ROTATION_90 -> {
-                    Log.d(TAG, getString(R.string.log_service_landscape_right))
                     R.string.orientation_landscape_right
                 }
                 Surface.ROTATION_180 -> {
-                    Log.d(TAG, getString(R.string.log_service_portrait_top))
                     R.string.orientation_portrait_top
                 }
                 Surface.ROTATION_270 -> {
-                    Log.d(TAG, getString(R.string.log_service_landscape_left))
                     R.string.orientation_landscape_left
                 }
                 else -> return super.onKeyEvent(event)
@@ -130,7 +123,17 @@ class HardwareKeyMapperService : AccessibilityService() {
             }
             if (actionIntent != null) {
                 actionIntent.`package` = overlayApp
-                startActivity(actionIntent)
+                actionIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                if (actionIntent.resolveActivity(packageManager) != null) {
+                    try {
+                        startActivity(actionIntent)
+                        Toast.makeText(applicationContext,"Successfully sent Intent",Toast.LENGTH_SHORT).show()
+                    } catch (error: ActivityNotFoundException) {
+                        Toast.makeText(applicationContext,"Error sending Intent",Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(applicationContext,"Receiver not found",Toast.LENGTH_SHORT).show()
+                }
             }
             return true
         }
