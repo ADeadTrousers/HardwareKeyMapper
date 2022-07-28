@@ -1,5 +1,6 @@
 package at.co.are.hardwarekeymapper
 
+import android.accessibilityservice.AccessibilityService
 import android.content.Context
 import android.content.SharedPreferences
 
@@ -98,6 +99,21 @@ abstract class DeviceSettings(
         val value = getOrientationKeyActionValue(orientationRes,keyRes,actionRes)
         val index = availableActionValues.indexOf(value)
         return availableActionEntries[index]
+    }
+    fun getOrientationKeyActionGlobal(orientationRes: Int, keyRes: Int, actionRes: Int): Int {
+        return when (getOrientationKeyActionValue(orientationRes,keyRes,actionRes)) {
+            availableActionValues[1] -> AccessibilityService.GLOBAL_ACTION_BACK
+            availableActionValues[2] -> AccessibilityService.GLOBAL_ACTION_HOME
+            availableActionValues[3] -> AccessibilityService.GLOBAL_ACTION_RECENTS
+            availableActionValues[4] -> AccessibilityService.GLOBAL_ACTION_TAKE_SCREENSHOT
+            availableActionValues[5] -> AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN
+            availableActionValues[6] -> AccessibilityService.GLOBAL_ACTION_POWER_DIALOG
+            availableActionValues[7] -> AccessibilityService.GLOBAL_ACTION_NOTIFICATIONS
+            availableActionValues[8] -> AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS
+            availableActionValues[9] -> AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN
+            //deviceSettings.availableActionValues[10] -> return GLOBAL_ACTION_KEYCODE_HEADSETHOOK
+            else -> 0
+        }
     }
     fun getOrientationKeySummary(orientationRes: Int, keyRes: Int): String {
         var summaryString = getResourceString(R.string.title_action_short_press) + ": "
