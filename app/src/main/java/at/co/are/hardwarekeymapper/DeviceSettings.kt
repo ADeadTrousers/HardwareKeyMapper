@@ -40,8 +40,8 @@ abstract class DeviceSettings(
             context: Context
         ) : DeviceSettings{
             return when (android.os.Build.MODEL) {
-                "Atom_L" -> AtomLXLDeviceSettings(sharedPreferences,context)
-                "Atom_XL" -> AtomLXLDeviceSettings(sharedPreferences,context)
+                "Atom_XL" -> AtomXLDeviceSettings(sharedPreferences,context)
+                "Atom_L" -> AtomLDeviceSettings(sharedPreferences,context)
                 else -> DefaultDeviceSettings(sharedPreferences,context)
             }
         }
