@@ -22,9 +22,12 @@ class HardwareKeyMapperService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {}
 
-    override fun onInterrupt() {
+    override fun onInterrupt() {}
+
+    override fun onUnbind(intent: Intent?): Boolean {
         longPressHandler = null
         globalLongPressed = false
+        return false
     }
 
     override fun onServiceConnected() {
@@ -107,7 +110,7 @@ class HardwareKeyMapperService : AccessibilityService() {
         // The first in the list of RunningTasks is always the foreground task.
         if (overlayApp == null || overlayApp.isEmpty()) return false
         if ((overlayIntentDown == null || overlayIntentDown.isEmpty()) && (overlayIntentUp == null || overlayIntentUp.isEmpty())) return false
-        if (getForegroundApp().equals(overlayApp)) {
+        if (getForegroundApp() == overlayApp) {
             val actionIntent = when (action) {
                 KeyEvent.ACTION_UP -> {
                     if (overlayIntentUp != null && overlayIntentUp.isNotEmpty()) {
