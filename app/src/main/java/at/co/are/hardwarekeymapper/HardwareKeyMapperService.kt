@@ -17,7 +17,7 @@ import androidx.preference.PreferenceManager
 import java.util.*
 
 class HardwareKeyMapperService : AccessibilityService() {
-    private var longPressHandler : Handler? = null
+    private var longPressHandler: Handler? = null
     private var globalLongPressed = false
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {}
@@ -123,16 +123,12 @@ class HardwareKeyMapperService : AccessibilityService() {
             }
             if (actionIntent != null) {
                 actionIntent.`package` = overlayApp
-                actionIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                if (actionIntent.resolveActivity(packageManager) != null) {
-                    try {
-                        startActivity(actionIntent)
-                        Toast.makeText(applicationContext,"Successfully sent Intent",Toast.LENGTH_SHORT).show()
-                    } catch (error: ActivityNotFoundException) {
-                        Toast.makeText(applicationContext,"Error sending Intent",Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Toast.makeText(applicationContext,"Receiver not found",Toast.LENGTH_SHORT).show()
+                //actionIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                try {
+                    sendBroadcast(actionIntent)
+                    Toast.makeText(applicationContext, "Successfully broadcast Intent", Toast.LENGTH_SHORT).show()
+                } catch (error: ActivityNotFoundException) {
+                    Toast.makeText(applicationContext, "Error broadcasting Intent", Toast.LENGTH_SHORT).show()
                 }
             }
             return true
