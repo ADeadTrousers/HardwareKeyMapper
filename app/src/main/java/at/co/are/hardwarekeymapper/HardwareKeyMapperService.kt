@@ -87,7 +87,11 @@ class HardwareKeyMapperService : AccessibilityService() {
 // Check the global settings first
         val deviceSettings = DeviceSettings.getCurrentDeviceSettings(PreferenceManager.getDefaultSharedPreferences(this), this)
 // Check if key mapping is active
-        if (!deviceSettings.isKeyActive(keyRes)) return super.onKeyEvent(event)
+        if (keyRes == R.string.key_key_unknown) {
+            if (deviceSettings.getKeyScanCode(keyRes) != event.scanCode) return super.onKeyEvent(event)
+        } else {
+            if (!deviceSettings.isKeyActive(keyRes)) return super.onKeyEvent(event)
+        }
 // Check if orientation mapping is active
         if (!deviceSettings.isOrientationActive(orientationRes)) return super.onKeyEvent(event)
 

@@ -3,8 +3,8 @@ package at.co.are.hardwarekeymapper
 import android.content.Context
 import android.content.SharedPreferences
 
-class AtomXLDeviceSettings(sharedPreferences: SharedPreferences,
-                           context: Context
+class IntercomDeviceSettings(sharedPreferences: SharedPreferences,
+                             context: Context
 ) : DeviceSettings(sharedPreferences, context) {
 
     companion object {
@@ -20,6 +20,12 @@ class AtomXLDeviceSettings(sharedPreferences: SharedPreferences,
             R.string.key_key_search -> false
             R.string.key_key_menu -> false
             else -> true
+        }
+    }
+    override fun getDefaultScanCode(res: Int): String {
+        return when(res) {
+            R.string.key_key_unknown -> "249"
+            else -> "0"
         }
     }
     override fun getOrientationKeyActionDefault(orientationRes: Int, keyRes: Int, actionRes: Int):String {

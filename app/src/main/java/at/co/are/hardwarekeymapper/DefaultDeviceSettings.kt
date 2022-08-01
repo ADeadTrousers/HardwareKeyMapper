@@ -13,9 +13,11 @@ class DefaultDeviceSettings(sharedPreferences: SharedPreferences,
             R.string.key_key_camera -> false
             R.string.key_key_search -> false
             R.string.key_key_menu -> false
-            R.string.key_key_unknown -> false
             else -> true
         }
+    }
+    override fun getDefaultScanCode(res: Int): String {
+        return "0"
     }
     override fun getOrientationKeyActionDefault(orientationRes: Int, keyRes: Int, actionRes: Int):String {
         return when(actionRes) {

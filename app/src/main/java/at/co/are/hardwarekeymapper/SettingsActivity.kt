@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import android.provider.Settings
+import android.text.InputType
 import android.text.TextUtils.SimpleStringSplitter
 import android.view.Menu
 import android.view.MenuInflater
@@ -210,6 +211,9 @@ class SettingsActivity : AppCompatActivity(),
 
             if (preference is SwitchPreference) {
                 preference.isChecked = deviceSettings.isKeyActive(keyRes)
+            } else if (preference is EditTextPreference) {
+                preference.text = deviceSettings.getKeyScanCode(keyRes).toString()
+                preference.setOnBindEditTextListener { editText -> editText.inputType = InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_SIGNED }
             }
         }
 

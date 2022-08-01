@@ -40,8 +40,10 @@ abstract class DeviceSettings(
             context: Context
         ) : DeviceSettings{
             return when (android.os.Build.MODEL) {
-                "Atom_XL" -> AtomXLDeviceSettings(sharedPreferences,context)
-                "Atom_L" -> AtomLDeviceSettings(sharedPreferences,context)
+                "Atom_XL" -> IntercomDeviceSettings(sharedPreferences,context)
+                "Atom_L" -> PTTDeviceSettings(sharedPreferences,context)
+                "Armor_3WT" -> IntercomDeviceSettings(sharedPreferences,context)
+                "Armor_3W" -> PTTDeviceSettings(sharedPreferences,context)
                 else -> DefaultDeviceSettings(sharedPreferences,context)
             }
         }
@@ -52,7 +54,16 @@ abstract class DeviceSettings(
     }
 
     fun isKeyActive(keyRes: Int): Boolean {
-        return sharedPreferences.getBoolean(getResourceString(keyRes),getDefaultActive(keyRes))
+        return when (keyRes) {
+            R.string.key_key_unknown -> {
+                getKeyScanCode(keyRes) != 0
+            }
+            else -> sharedPreferences.getBoolean(getResourceString(keyRes),getDefaultActive(keyRes))
+        }
+    }
+
+    fun getKeyScanCode(keyRes: Int): Int {
+        return sharedPreferences.getString(getResourceString(keyRes),getDefaultScanCode(keyRes))?.toInt() ?: 0
     }
 
     fun isOrientationKeyActive(orientationRes: Int,keyRes: Int): Boolean {
@@ -134,6 +145,7 @@ abstract class DeviceSettings(
         return summaryString
     }
 
+    protected abstract fun getDefaultScanCode(res: Int):String
     protected abstract fun getDefaultActive(res: Int):Boolean
 }
 
