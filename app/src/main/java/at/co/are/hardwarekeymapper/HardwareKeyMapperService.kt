@@ -1,7 +1,7 @@
 package at.co.are.hardwarekeymapper
 
 import android.accessibilityservice.AccessibilityService
-import android.app.usage.UsageStatsManager
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.hardware.display.DisplayManager
@@ -12,15 +12,28 @@ import android.view.KeyEvent
 import android.view.Surface
 import android.view.ViewConfiguration
 import android.view.accessibility.AccessibilityEvent
-import android.widget.Toast
 import androidx.preference.PreferenceManager
-import java.util.*
 
 class HardwareKeyMapperService : AccessibilityService() {
     private var longPressHandler: Handler? = null
+    private var foregroundApp: String? = ""
     private var globalLongPressed = false
 
-    override fun onAccessibilityEvent(event: AccessibilityEvent) {}
+    @SuppressLint("SwitchIntDef")
+    override fun onAccessibilityEvent(event: AccessibilityEvent) {
+        when (event.eventType) {
+// Only works as a system APP
+            AccessibilityEvent.TYPE_WINDOWS_CHANGED ->
+                if (event.windowChanges.and(AccessibilityEvent.WINDOWS_CHANGE_ACTIVE) != 0)
+                    if (windows[event.windowId].isActive)
+                        foregroundApp = event.packageName as String?
+                    else if (foregroundApp.equals(event.packageName as String?))
+                        foregroundApp = ""
+// Should work as a normal APP (last state changed should be fired on foreground app)
+            AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED ->
+                foregroundApp = event.packageName as String?
+        }
+    }
 
     override fun onInterrupt() {}
 
@@ -112,17 +125,17 @@ class HardwareKeyMapperService : AccessibilityService() {
 
     private fun executeOverlay(overlayApp: String?, overlayIntentDown: String?, overlayIntentUp: String?, action: Int): Boolean {
         // The first in the list of RunningTasks is always the foreground task.
-        if (overlayApp == null || overlayApp.isEmpty()) return false
-        if ((overlayIntentDown == null || overlayIntentDown.isEmpty()) && (overlayIntentUp == null || overlayIntentUp.isEmpty())) return false
-        if (getForegroundApp() == overlayApp) {
+        if (overlayApp.isNullOrEmpty()) return false
+        if (overlayIntentDown.isNullOrEmpty() && overlayIntentUp.isNullOrEmpty()) return false
+        if (foregroundApp == overlayApp) {
             val actionIntent = when (action) {
                 KeyEvent.ACTION_UP -> {
-                    if (overlayIntentUp != null && overlayIntentUp.isNotEmpty()) {
+                    if (!overlayIntentUp.isNullOrEmpty()) {
                         Intent(overlayIntentUp)
                     } else null
                 }
                 KeyEvent.ACTION_DOWN -> {
-                    if (overlayIntentDown != null && overlayIntentDown.isNotEmpty()) {
+                    if (!overlayIntentDown.isNullOrEmpty()) {
                         Intent(overlayIntentDown)
                     } else null
                 }
@@ -133,27 +146,15 @@ class HardwareKeyMapperService : AccessibilityService() {
                 //actionIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 try {
                     sendBroadcast(actionIntent)
-                    Toast.makeText(applicationContext, "Successfully broadcast Intent", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(applicationContext, "Successfully broadcast Intent", Toast.LENGTH_SHORT).show()
                 } catch (error: ActivityNotFoundException) {
-                    Toast.makeText(applicationContext, "Error broadcasting Intent", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(applicationContext, "Error broadcasting Intent", Toast.LENGTH_SHORT).show()
                 }
             }
             return true
         }
         return false
     }
-
-    private fun getForegroundApp(): String? {
-        val time = System.currentTimeMillis()
-        val appStatsList = (getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager).queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time)
-        if (appStatsList != null && appStatsList.isNotEmpty()) {
-            return Collections.max(appStatsList) { o1, o2 ->
-                o1.lastTimeUsed.compareTo(o2.lastTimeUsed)
-            }.packageName
-        }
-        return null
-    }
-
     private fun executeAction(actionShortPress: Int, actionLongPress: Int, action: Int): Boolean {
         if (action == KeyEvent.ACTION_UP) {
             if (actionShortPress > 0) {
