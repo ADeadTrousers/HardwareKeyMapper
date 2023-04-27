@@ -1,10 +1,7 @@
 package at.co.are.hardwarekeymapper
 
-import android.app.AppOpsManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Process
 import android.provider.Settings
 import android.text.InputType
 import android.text.TextUtils.SimpleStringSplitter
@@ -85,21 +82,8 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
-    private fun requestUsageStatsPermission() {
-        if (!hasUsageStatsPermission(appContext)) {
-            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-        }
-    }
-
-    private fun hasUsageStatsPermission(context: Context): Boolean {
-        val appOps = getSystemService(APP_OPS_SERVICE) as AppOpsManager
-        val mode = appOps.unsafeCheckOpNoThrow("android:get_usage_stats", Process.myUid(), context.packageName)
-        return mode == AppOpsManager.MODE_ALLOWED
-    }
-
     override fun onStart() {
         super.onStart()
-        requestUsageStatsPermission()
         preferencesMappings.updatePreferences()
     }
 
