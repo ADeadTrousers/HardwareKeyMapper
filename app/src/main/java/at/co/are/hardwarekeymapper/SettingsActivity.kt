@@ -47,6 +47,7 @@ class SettingsActivity : AppCompatActivity(),
             .commit()
     }
 
+    @Suppress("BooleanMethodIsAlwaysInverted")
     private fun navigateFragment(fragment: Fragment?, args: Bundle?): Boolean {
         if (fragment != null) {
             fragment.arguments = args

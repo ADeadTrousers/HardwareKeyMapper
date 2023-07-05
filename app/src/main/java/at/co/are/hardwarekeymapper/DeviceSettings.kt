@@ -49,10 +49,12 @@ abstract class DeviceSettings(
         }
     }
 
+    @Suppress("BooleanMethodIsAlwaysInverted")
     fun isOrientationActive(orientationRes: Int): Boolean {
         return sharedPreferences.getBoolean(getResourceString(orientationRes),getDefaultActive(orientationRes))
     }
 
+    @Suppress("BooleanMethodIsAlwaysInverted")
     fun isKeyActive(keyRes: Int): Boolean {
         return when (keyRes) {
             R.string.key_key_unknown -> {
@@ -101,7 +103,7 @@ abstract class DeviceSettings(
         return getOrientationKeyString(orientationRes,keyRes)+"_"+getResourceString(actionRes)
     }
 
-    abstract fun getOrientationKeyActionDefault(orientationRes: Int, keyRes: Int, actionRes: Int):String
+    abstract fun getOrientationKeyActionDefault(ignoredOrientationRes: Int, keyRes: Int, actionRes: Int):String
 
     fun getOrientationKeyActionValue(orientationRes: Int, keyRes: Int, actionRes: Int): String? {
         return sharedPreferences.getString(getOrientationKeyActionString(orientationRes,keyRes,actionRes),getOrientationKeyActionDefault(orientationRes,keyRes,actionRes))
@@ -146,6 +148,7 @@ abstract class DeviceSettings(
     }
 
     protected abstract fun getDefaultScanCode(res: Int):String
+    @Suppress("BooleanMethodIsAlwaysInverted")
     protected abstract fun getDefaultActive(res: Int):Boolean
 }
 
