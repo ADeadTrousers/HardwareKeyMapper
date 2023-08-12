@@ -1,61 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.298" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/device_landscape_left.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/device_landscape_right.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/device_portrait_bottom.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/device_portrait_down.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/device_portrait_up.xml" value="0.298" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_back.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_camera.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_home.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_menu.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_recent.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_search.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_volume_down.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/key_volume_up.xml" value="0.3675" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/drawable/messages.xml" value="0.298" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/layout/settings_activity.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/xml/header_preferences.xml" value="0.45555555555555555" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/xml/messages_preferences.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/xml/preferences_detail.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/xml/preferences_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HadwareKeyMapper/app/src/main/res/xml/sync_preferences.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.184" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/device_landscape_left.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/device_landscape_right.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/device_portrait_bottom.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/device_portrait_top.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/ic_launcher_background.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/ic_round_more_vert_24.xml" value="0.279" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_app_switch.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_back.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_camera.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_home.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_menu.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_search.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_service.xml" value="0.1155" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_settings.xml" value="0.1155" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_unknown.xml" value="0.1155" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_volume_down.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/key_volume_up.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/drawable/messages.xml" value="0.131" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/layout/activity_main.xml" value="0.27037037037037037" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/layout/settings_activity.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/menu/details_menu.xml" value="0.25" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/menu/settings_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/xml/preferences_detail.xml" value="0.33" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/xml/preferences_keys.xml" value="0.25" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/xml/preferences_mappings.xml" value="0.284375" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/xml/preferences_orientation.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Matthias Leitl/AndroidStudioProjects/HardwareKeyMapper/app/src/main/res/xml/preferences_orientations.xml" value="0.284375" />
+        <entry key="../app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.298" />
+        <entry key="../app/src/main/res/drawable/device_landscape_left.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/device_landscape_right.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/device_portrait_bottom.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/device_portrait_down.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/device_portrait_up.xml" value="0.298" />
+        <entry key="../app/src/main/res/drawable/key_back.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/key_camera.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/key_home.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/key_menu.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/key_recent.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/key_search.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/key_volume_down.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/key_volume_up.xml" value="0.3675" />
+        <entry key="../app/src/main/res/drawable/messages.xml" value="0.298" />
+        <entry key="../app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="../app/src/main/res/layout/settings_activity.xml" value="0.36666666666666664" />
+        <entry key="../app/src/main/res/xml/header_preferences.xml" value="0.45555555555555555" />
+        <entry key="../app/src/main/res/xml/messages_preferences.xml" value="0.36666666666666664" />
+        <entry key="../app/src/main/res/xml/preferences_detail.xml" value="0.36666666666666664" />
+        <entry key="../app/src/main/res/xml/preferences_main.xml" value="0.36666666666666664" />
+        <entry key="../app/src/main/res/xml/sync_preferences.xml" value="0.36666666666666664" />
+        <entry key="../app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.184" />
+        <entry key="../app/src/main/res/drawable/device_landscape_left.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/device_landscape_right.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/device_portrait_bottom.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/device_portrait_top.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/ic_launcher_background.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/ic_round_more_vert_24.xml" value="0.279" />
+        <entry key="../app/src/main/res/drawable/key_app_switch.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/key_back.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/key_camera.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/key_home.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/key_menu.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/key_search.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/key_service.xml" value="0.1155" />
+        <entry key="../app/src/main/res/drawable/key_settings.xml" value="0.1155" />
+        <entry key="../app/src/main/res/drawable/key_unknown.xml" value="0.1155" />
+        <entry key="../app/src/main/res/drawable/key_volume_down.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/key_volume_up.xml" value="0.131" />
+        <entry key="../app/src/main/res/drawable/messages.xml" value="0.131" />
+        <entry key="../app/src/main/res/layout/activity_main.xml" value="0.27037037037037037" />
+        <entry key="../app/src/main/res/layout/settings_activity.xml" value="0.18802083333333333" />
+        <entry key="../app/src/main/res/menu/details_menu.xml" value="0.25" />
+        <entry key="../app/src/main/res/menu/settings_menu.xml" value="0.36666666666666664" />
+        <entry key="../app/src/main/res/xml/preferences_detail.xml" value="0.33" />
+        <entry key="../app/src/main/res/xml/preferences_keys.xml" value="0.25" />
+        <entry key="../app/src/main/res/xml/preferences_mappings.xml" value="0.284375" />
+        <entry key="../app/src/main/res/xml/preferences_orientation.xml" value="0.36666666666666664" />
+        <entry key="../app/src/main/res/xml/preferences_orientations.xml" value="0.284375" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
