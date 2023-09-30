@@ -309,7 +309,7 @@ class SettingsActivity : AppCompatActivity(),
             addPreferencesFromResource(R.xml.preferences_mappings)
             modifyOrientation(
                 R.string.orientation_landscape_right,
-                R.string.title_landscape_left,
+                R.string.title_landscape_right,
                 R.drawable.device_landscape_right
             )
             addPreferencesFromResource(R.xml.preferences_mappings)
@@ -321,7 +321,7 @@ class SettingsActivity : AppCompatActivity(),
             addPreferencesFromResource(R.xml.preferences_mappings)
             modifyOrientation(
                 R.string.orientation_landscape_left,
-                R.string.title_landscape_right,
+                R.string.title_landscape_left,
                 R.drawable.device_landscape_left
             )
         }

@@ -125,6 +125,7 @@ abstract class DeviceSettings(
             availableActionValues[8] -> AccessibilityService.GLOBAL_ACTION_QUICK_SETTINGS
             availableActionValues[9] -> AccessibilityService.GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN
             //deviceSettings.availableActionValues[10] -> return GLOBAL_ACTION_KEYCODE_HEADSETHOOK
+            availableActionValues[10] -> HardwareKeyMapperService.LOCAL_ACTION_TOGGLE_FLASH_LIGHT
             else -> 0
         }
     }

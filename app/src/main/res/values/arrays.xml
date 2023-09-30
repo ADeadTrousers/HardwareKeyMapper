@@ -12,7 +12,8 @@
         <item>Notifications</item>
         <item>Quick settings</item>
         <item>Split screen</item>
-<!--        <item>Headset</item>-->
+        <!--        <item>Headset</item>-->
+        <item>Toggle flashlight</item>
     </string-array>
 
     <string-array name="action_values">
@@ -26,7 +27,8 @@
         <item>notifications</item>
         <item>quick_settings</item>
         <item>split_screen</item>
-<!--        <item>headset</item>-->
+        <!--        <item>headset</item>-->
+        <item>toggle_flashlight</item>
     </string-array>
 
 </resources>

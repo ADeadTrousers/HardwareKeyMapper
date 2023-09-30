@@ -21,5 +21,23 @@ PRODUCT_PACKAGES += \
     HardwareKeyMapper
 ```
 
+## Changelog
+
+* v0.1.0.6
+    - Introduce "Toggle Flashlight" action
+
+* v0.1.0.5
+    - Only use "pure" AccessibilityService features
+
+* v0.1.0.3
+    - Utilize scanCode for unknown key
+    - Introduce Armor 3W/T
+
+* v0.1.0.2
+    - AOSP Integration
+
+* v0.1
+    - Initial Release
+
 ## Special Thanks to
 [NavButtonRemap by shuhaowu](https://github.com/shuhaowu/NavButtonRemap) which was a great inspiration to expand upon.

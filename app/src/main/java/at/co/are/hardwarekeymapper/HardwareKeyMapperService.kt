@@ -18,6 +18,13 @@ class HardwareKeyMapperService : AccessibilityService() {
     private var longPressHandler: Handler? = null
     private var foregroundApp: String? = ""
     private var globalLongPressed = false
+    private var flashLight: FlashLightProvider? = null
+
+    companion object {
+        const val LOCAL_ACTION_MIN = 1000
+        const val LOCAL_ACTION_TOGGLE_FLASH_LIGHT = 1000
+        const val LOCAL_ACTION_MAX = 1000
+    }
 
     @SuppressLint("SwitchIntDef")
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
@@ -40,12 +47,14 @@ class HardwareKeyMapperService : AccessibilityService() {
     override fun onUnbind(intent: Intent?): Boolean {
         longPressHandler = null
         globalLongPressed = false
+        flashLight = null
         return false
     }
 
     override fun onServiceConnected() {
         longPressHandler = Handler(Looper.myLooper()!!)
         globalLongPressed = false
+        flashLight = FlashLightProvider(applicationContext)
     }
 
     public override fun onKeyEvent(event: KeyEvent): Boolean {
@@ -158,7 +167,7 @@ class HardwareKeyMapperService : AccessibilityService() {
     private fun executeAction(actionShortPress: Int, actionLongPress: Int, action: Int): Boolean {
         if (action == KeyEvent.ACTION_UP) {
             if (actionShortPress > 0) {
-                performGlobalAction(actionShortPress)
+                performLocalAction(actionShortPress)
                 return true
             }
         } else if (action == KeyEvent.ACTION_DOWN) {
@@ -170,11 +179,21 @@ class HardwareKeyMapperService : AccessibilityService() {
                     } else {
                         globalLongPressed = true
                     }
-                    performGlobalAction(actionLongPress)
+                    performLocalAction(actionLongPress)
                 }, ViewConfiguration.getLongPressTimeout().toLong())
                 return true
             }
         }
         return false
+    }
+
+    private fun performLocalAction(action: Int) {
+        if (action in LOCAL_ACTION_MIN..LOCAL_ACTION_MAX ) {
+            when (action) {
+                LOCAL_ACTION_TOGGLE_FLASH_LIGHT -> flashLight?.toggleFlashLight()
+            }
+        } else {
+            performGlobalAction(action)
+        }
     }
 }

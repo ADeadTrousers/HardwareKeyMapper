@@ -22,7 +22,7 @@ class PTTDeviceSettings(sharedPreferences: SharedPreferences,
             else -> "0"
         }
     }
-    override fun getOrientationKeyActionDefault(orientationRes: Int, keyRes: Int, actionRes: Int):String {
+    override fun getOrientationKeyActionDefault(ignoredOrientationRes: Int, keyRes: Int, actionRes: Int):String {
         return when(actionRes) {
             R.string.key_action_short_press -> availableActionValues[0]
             R.string.key_action_long_press -> availableActionValues[0]
