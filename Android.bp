@@ -1,0 +1,22 @@
+android_app {
+    name: "HardwareKeyMapper",
+
+    manifest: "app/src/main/AndroidManifest.xml",
+
+    resource_dirs: ["app/src/main/res"],
+
+    srcs: [
+        "app/src/main/java/**/*.java",
+        "app/src/main/java/**/*.kt",
+    ],
+
+    static_libs: [
+        "androidx.core_core-ktx",
+        "androidx.appcompat_appcompat",
+        "com.google.android.material_material",
+        "androidx-constraintlayout_constraintlayout",
+        "androidx.preference_preference",
+    ],
+
+    sdk_version: "current",
+}
