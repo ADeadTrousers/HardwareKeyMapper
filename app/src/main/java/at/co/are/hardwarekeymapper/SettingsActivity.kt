@@ -340,7 +340,7 @@ class SettingsActivity : AppCompatActivity(),
                 prepareSummariesUpdate = false
                 prepareActionsFragmentUpdate = null
             } else if (prepareActionsFragmentUpdate != null) {
-                if (subsidiaryActionsFragments.contains(prepareActionsFragmentUpdate)) {
+                if (subsidiaryActionsFragments.contains(prepareActionsFragmentUpdate!!)) {
                     updateSummary(prepareActionsFragmentUpdate!!)
                 }
                 prepareActionsFragmentUpdate = null
