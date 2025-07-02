@@ -1,6 +1,5 @@
 package at.co.are.hardwarekeymapper
 
-import android.content.Context
 import android.os.Bundle
 import android.provider.Settings
 import android.text.InputType
@@ -17,10 +16,6 @@ private const val TITLE_TAG = "settingsActivityTitle"
 
 class SettingsActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-
-    companion object {
-        lateinit var appContext: Context
-    }
 
     private var optionsMenu = R.menu.settings_menu
     private lateinit var preferencesMappings: CompositeMappingsPreferenceFragmentCompat
@@ -63,7 +58,6 @@ class SettingsActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        appContext = applicationContext
         setContentView(R.layout.settings_activity)
 
         preferencesMappings = CompositeMappingsPreferenceFragmentCompat()
@@ -177,7 +171,7 @@ class SettingsActivity : AppCompatActivity(),
         private lateinit var deviceSettings: DeviceSettings
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            deviceSettings = DeviceSettings.getCurrentDeviceSettings(preferenceManager.sharedPreferences!!, appContext)
+            deviceSettings = DeviceSettings.getCurrentDeviceSettings(preferenceManager.sharedPreferences!!, requireContext())
 
             setPreferencesFromResource(R.xml.preferences_keys, rootKey)
             addPreferencesFromResource(R.xml.preferences_orientations)
@@ -297,7 +291,7 @@ class SettingsActivity : AppCompatActivity(),
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            deviceSettings = DeviceSettings.getCurrentDeviceSettings(preferenceManager.sharedPreferences!!, appContext)
+            deviceSettings = DeviceSettings.getCurrentDeviceSettings(preferenceManager.sharedPreferences!!, requireContext())
 
             setPreferencesFromResource(R.xml.preferences_service, rootKey)
             addPreferencesFromResource(R.xml.preferences_mappings)

@@ -23,7 +23,7 @@ class FlashLightProvider(private val context: Context?) {
                 camManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
                 camManager.registerTorchCallback(torchCallback, null)
             } catch (e: CameraAccessException) {
-                Log.e(TAG, e.toString())
+                Log.e(LOGGING.TAG, e.toString())
             }
         }
     }
@@ -47,7 +47,7 @@ class FlashLightProvider(private val context: Context?) {
             val cameraId = camManager.cameraIdList[0] // Usually front camera is at 0 position.
             camManager.setTorchMode(cameraId, true)
         } catch (e: CameraAccessException) {
-            Log.e(TAG, e.toString())
+            Log.e(LOGGING.TAG, e.toString())
         }
     }
 
@@ -69,7 +69,7 @@ class FlashLightProvider(private val context: Context?) {
         else turnFlashlightOn()
     }
 
-    companion object {
-        private val TAG: String = FlashLightProvider::class.java.simpleName
+    private object LOGGING {
+        val TAG: String = FlashLightProvider::class.java.simpleName
     }
 }

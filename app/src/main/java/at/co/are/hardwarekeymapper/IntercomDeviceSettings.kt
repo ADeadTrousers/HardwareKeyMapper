@@ -3,15 +3,13 @@ package at.co.are.hardwarekeymapper
 import android.content.Context
 import android.content.SharedPreferences
 
+const val INTERCOM_APP = "com.agold.intercom"
+const val INTERCOM_INTENT_UP = "android.intent.action.PTT.up"
+const val INTERCOM_INTENT_DOWN = "android.intent.action.PTT.down"
+
 class IntercomDeviceSettings(sharedPreferences: SharedPreferences,
                              context: Context
 ) : DeviceSettings(sharedPreferences, context) {
-
-    companion object {
-        const val INTERCOM_APP = "com.agold.intercom"
-        const val INTERCOM_INTENT_UP = "android.intent.action.PTT.up"
-        const val INTERCOM_INTENT_DOWN = "android.intent.action.PTT.down"
-    }
 
     override fun getDefaultActive(res: Int): Boolean {
         return when(res) {
